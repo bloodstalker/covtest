@@ -1,33 +1,40 @@
+#SHELL
+SHELL:=/bin/bash
+
 #VARS
 CC=gcc
 LD=ld
 SRC_FILE1=harness
 SRC_FILE2=testFuncs1
 INC_DIR=D:\home\devi\covtest
-OUT_DIR=D:\home\devi\covtest\output
-OPTS=-c
+OUT_DIR:=out
+C_FLAGS=-ID:\home\devi\covtest -c
+LD_FLAGS=
 EXE=harness.exe
 
+TARGET=harness
 
 #DEFAULT
 .DEFAULT:all
-.PHONY:all
-all: 
-	@echo 'building target all'
-	$(CC) $(SRC_FILE1).c $(OPTS) -I$(INC_DIR) -o$(OUT_DIR)\$(SRC_FILE1).o
-	$(CC) $(SRC_FILE1).c $(OPTS) -I$(INC_DIR) -o$(OUT_DIR)\$(SRC_FILE2).o
 
-.PHONY:link
-link:
-	$(LD) -o harness $(OUT_DIR)\$(SRC_FILE1).o $(OUT_DIR)\$(SRC_FILE2).o
+.PHONY:all clean help
+all: $(TARGET)
 
-.PHONY:clean
+.c.o: harness.c testFuncs1.c testFuncs1.h
+	@echo 'compiling all source files...'
+	if [ -d out ]; then\
+		echo 'out directory already exists.skipping...';\
+	else\
+		mkdir ./out;\
+	fi
+	$(CC) $(C_FLAGS) $? -o $@
+
+$(TARGET): harness.o testFuncs1.o
+	$(CC) $? $(LD_FLAGS) -o $@
+
 clean:
-	rm $(OUT_DIR)\$(EXE)
-	rm $(OUT_DIR)\$(SRC_FILE1).o
-	rm $(OUT_DIR)\$(SRC_FILE2).o
+	rm ./out -rf $(wildcard *.o) $(wildcard *.exe) $(TARGET)
 
-.PHONY:help
 help:	
 	@echo '		all is the default'
 	@echo '		all only compiles. it does not link'
@@ -35,7 +42,3 @@ help:
 	@echo '		and obviously help'
 	@echo '		allda compiles and links'
 	@echo '		link is broken right now'
-
-.PHONY:allda
-allda:
-	$(CC) $(SRC_FILE1).c $(SRC_FILE2).c -I$(INC_DIR) -o$(OUT_DIR)\$(EXE)

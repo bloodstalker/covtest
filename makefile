@@ -4,13 +4,10 @@ SHELL:=/bin/bash
 #VARS
 CC=gcc
 LD=ld
-SRC_FILE1=harness
-SRC_FILE2=testFuncs1
-INC_DIR=D:\home\devi\covtest
+INC_DIR=
 OUT_DIR:=out
-C_FLAGS=-ID:\home\devi\covtest -c
+C_FLAGS=-I./ -c
 LD_FLAGS=
-EXE=harness.exe
 
 TARGET=harness
 

@@ -337,7 +337,7 @@ void testFuncShortCircuit (blreplacement bool1, blreplacement bool2)
 /*checking MCDC coverage behavior of the tool for multiply occuring conditions*/
 void testFuncMCDC1 (blreplacement decision1, blreplacement decision2)
 {
-	if (decision1 &&  ( decision2 || decision1) || (!decision1 || decision2) )
+	if (decision1 &&  (( decision2 || decision1) || (!decision1 || decision2)) )
 	{
 		im_a_dummy();
 	}

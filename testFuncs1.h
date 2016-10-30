@@ -85,7 +85,7 @@ void testFuncMCDC1 (blreplacement decision1 , blreplacement decision2);
 	void testFuncMultiInstantiation (int level);
 #endif
 void testFuncQMark (int int1, int int2);
-
+void testFuncCallBool (void);
 
 void im_a_mlaign_func (void);
 void im_a_benign_func (void);
